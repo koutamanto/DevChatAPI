@@ -216,3 +216,123 @@ Response JSON:
   "reason":"otp was not matched before, or unexpected access from user"
 }
 ```
+
+### Group
+
+#### Create Group
+
+URL: /create_group
+
+Request JSON
+```
+{
+  "type": "create_group",
+  "from": "u1234567890abcde",
+  "name": "グループ名"
+}
+```
+
+Response JSON
+```
+{
+  "gid":"g1234567890abcde"
+}
+```
+
+#### Delete Group
+
+URL: /delete_group
+
+Request JSON
+```
+{
+  "type": "delete_group",
+  "gid":"g1234567890abcde"
+}
+```
+
+Response JSON
+```
+{
+  "status":"success"
+}
+```
+
+#### Join Group
+
+URL: /join_group
+
+Request JSON
+```
+{
+  "type": "join_group", 
+  "gid": "g1234567890abcde" , 
+  "uid": "u1234567890abcde"
+}
+```
+
+Response JSON
+```
+{
+  "status": "success"
+}
+```
+
+### Message
+
+#### Send Message(Text)
+
+URL: /send_message
+
+Request JSON:
+```
+{
+  "from": "u1234567890abcde", 
+  "to":"g1234567890abcde",
+  "message":{
+    "type":"text", 
+    "content":"こんにちは" #メッセージ内容
+   }
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success"
+}
+```
+
+#### Get Messages
+
+URL: /get_message
+
+Request JSON:
+```
+{
+  "type":"get_message", 
+  "gid":"g1234567890abcde")
+}
+```
+
+Response JSON:
+```
+{
+  "datas":[
+    {
+      "content":"こんにちは", 
+      "uid": "u1029384756abced", 
+      "name": "通りすがりのユーザー", 
+      "unix": 1634343835.846011, 
+      "number": 1
+    },
+    {
+      "content":"こんにちは", 
+      "uid": "u1029384756abced", 
+      "name": "逆張り挨拶おじさん", 
+      "unix": 1634343840.12345, 
+      "number": 2
+    }
+  ]
+}
+```
