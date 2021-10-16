@@ -162,3 +162,57 @@ Request JSON:
 }
 ```
 
+Response JSON:
+
+(OTP Authentication Success):
+```
+{
+  "status":"success"
+ }
+```
+
+((OTP Authentication Failed):
+```
+{
+  "status":"failed", 
+  "reason":"otp is not matched"
+ }
+```
+
+
+### Reset Password
+
+##### Required Params
+- type
+  - "reset_password"
+- uid
+  - "u1234567890abcde"
+- new_password
+  - "unko1234"
+
+Request JSON:
+
+```
+{
+  "type": "reset_password",
+  "uid": "u1234567890abcde",
+  "new_password": "unko1234"
+
+```
+Response JSON:
+
+(Success):
+```
+{
+  "status":"success"
+}
+
+```
+
+(Failed):
+```
+{
+  "status":"failed", 
+  "reason":"otp was not matched before, or unexpected access from user"
+}
+```
