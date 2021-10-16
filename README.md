@@ -71,4 +71,26 @@ URL : /register
   "type": "sign_up",
   "uid": "u1234567890abcde",
   "otp": "1234"
+}
 ```
+
+### Login
+
+URL : /login
+
+#### Required Params
+- type
+  - "log_in"
+- mail_address
+  - "user@example.com"
+  - "example1234"
+
+```
+{
+  "type": "log_in",
+  "mail_address": "user@example.com",
+  "pass_word": "example1234"
+
+```
+
+Sample:https://github.com/koutamanto/DevChatAPI/blob/main/test/login.py
