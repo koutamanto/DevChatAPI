@@ -9,8 +9,9 @@ from login import login
 datas = login()
 uid = datas["uid"]
 #gid = "g88dfba6a2d9811e"
-gid = "g2269baca2d9c11e"
+#gid = "g2269baca2d9c11e"
+gid = input("gid:")
 text = input("text:")
 datas = {"from":uid, "to":gid, "message":{"type":"text", "content":text}}
-r = requests.post("http://127.0.0.1/send_message", json=datas)
+r = requests.post("http://163.44.249.252/send_message", json=datas)
 print(r, r.text)

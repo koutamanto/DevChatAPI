@@ -8,5 +8,5 @@ datas = {
   "otp": otp
 }
 
-r = requests.post("http://127.0.0.1/register", json=datas)
+r = requests.post("http://163.44.249.252/register", json=datas)
 print(r, r.text)
