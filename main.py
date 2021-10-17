@@ -87,6 +87,13 @@ def register():
         user_pass_word = datas["pass_word"]
         uuid32 = str(uuid.uuid1().hex)
         uid = "u" + uuid32[:15]
+        cur.execute(f'SELECT id FROM WHERE id="{uid}"')
+        is_exists_same_id = cur.fetchone()[0]
+        if is_exists_same_id == None:
+            pass
+        elif is_exists_same_id != None:
+            uuid32 = str(uuid.uuid1().hex)
+            uid = "u" + uuid32[:15]
         otp = str(uuid.uuid1().int)[:4]
         cur.execute(f'SELECT email FROM users WHERE email="{mail_address}"')
         exists_mail_address = cur.fetchone()
