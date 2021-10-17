@@ -201,9 +201,14 @@ def get_messages():
         message_cur.execute(f'SELECT content, uid, name, unix, number FROM {gid}')
         datas = message_cur.fetchall()
         send_datas = []
+        count = 0
         for data in datas:
-            content, uid, name, unix, number = data
-            send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number})
+            if count < 100:
+                count = count + 1
+                content, uid, name, unix, number = data
+                send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number})
+            else:
+                break
         return jsonify({"datas":send_datas})
 
 @app.route("/forgot_password", methods=["POST"])
