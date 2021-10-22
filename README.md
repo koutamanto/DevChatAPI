@@ -13,6 +13,7 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Create group
 - Delete Group
 - Join Group
+- Invite Into Group
 
 ### Message
 - Send message(Text)
@@ -275,6 +276,27 @@ Response JSON
 ```
 {
   "status": "success"
+}
+```
+
+#### Invite Into Group
+
+URL: /invite_into_group
+
+Request JSON
+```
+{
+  "type": "invite_into_group",
+  "target_uid": "u1029384857abdecd", #招待する対象のuid
+  "to": "g1234567890abcde", #招待先のグループのgid
+  "uid": "u1234567890abcde" #自分のuid
+}
+```
+
+Response JSON
+```
+{
+  "gid": "g1234567890abcde" #招待が成功したグループのgid
 }
 ```
 
