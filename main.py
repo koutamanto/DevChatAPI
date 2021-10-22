@@ -1,9 +1,12 @@
 import uuid
 from flask import Flask, jsonify, request
 import sqlite3, json, requests
+from flask.templating import render_template
 import smtplib, ssl
 from email.mime.text import MIMEText
 from datetime import datetime
+from flask_swagger import swagger
+
 app = Flask(__name__)
 
 db_name = "main.db"
@@ -20,6 +23,7 @@ message_cur = message_conn.cursor()
 #cur.execute("CREATE TABLE user(uid nvarchar[16], name STRING)")
 #cur.execute("CREATE TABLE gid(gid nvarchar[16], name STRING)")
 #cur.execute("CREATE TABLE message(type STRING, body STRING, tid nvarchar[16], fid nvarchar[16])")
+
 @app.route("/send_message", methods=["POST"])
 def handle_message():
     raw_datas = request.get_data()
@@ -69,7 +73,8 @@ def create_group():
         message_cur.execute(f'CREATE TABLE {gid} (content STRING, uid nvarchar[16], name STRING, unix REAL, number INTEGER)')
         cur.execute(f'INSERT INTO gid values("{gid}", "{name}")')
         conn.commit()
-        return jsonify({"gid":gid})
+        return jsonify({"status":"success","gid":gid})
+
 @app.route("/register", methods=["POST"])
 def register():
     #{
@@ -87,8 +92,8 @@ def register():
         user_pass_word = datas["pass_word"]
         uuid32 = str(uuid.uuid1().hex)
         uid = "u" + uuid32[:15]
-        cur.execute(f'SELECT id FROM WHERE id="{uid}"')
-        is_exists_same_id = cur.fetchone()[0]
+        cur.execute(f'SELECT id FROM users WHERE id="{uid}"')
+        is_exists_same_id = cur.fetchone()
         if is_exists_same_id == None:
             pass
         elif is_exists_same_id != None:
@@ -116,7 +121,9 @@ def register():
 
         # メールデータ(MIME)の作成 --- (*3)
         subject = "DevChatアカウント認証 ワンタイムパスワード"
-        body = f"アプリに[{otp}]を入力してください。"
+        body = f"""アプリに[{otp}]を入力してください。
+        
+        ※心当たりのない場合は無視してください"""
         msg = MIMEText(body, "html")
         msg["Subject"] = subject
         msg["To"] = mail_to
@@ -128,7 +135,7 @@ def register():
         server.login(gmail_account, gmail_password)
         server.send_message(msg) # メールの送信
         print("ok.")
-        return jsonify({"uid":uid})
+        return jsonify({"status":"success","uid":uid})
     if type == "sign_up":
         uid = datas["uid"]
         otp = datas["otp"]
@@ -138,7 +145,32 @@ def register():
 
         user_cur.execute(f'CREATE TABLE {uid} (id nvarchar[16], name STRING)')
         message_cur.execute(f'CREATE TABLE {uid} (type STRING, content STRING, tid nvarchar[16], fid nvarchar[16])')
-        return jsonify({"uid":uid})
+        # 以下にGmailの設定を書き込む★ --- (*1)
+        gmail_account = "devchatotp@gmail.com"
+        gmail_password = "kouta1014"
+        # メールの送信先★ --- (*2)
+        
+        cur.execute(f'SELECT email FROM users WHERE id="{uid}"')
+
+        mail_to = cur.fetchone()[0]
+
+        # メールデータ(MIME)の作成 --- (*3)
+        subject = "DevChatアカウント認証 完了"
+        body = f"""DevChatアカウントの認証が完了しました。
+        アプリを開いてください。
+        ※心当たりのない場合は無視してください"""
+        msg = MIMEText(body, "html")
+        msg["Subject"] = subject
+        msg["To"] = mail_to
+        msg["From"] = gmail_account
+
+        # Gmailに接続 --- (*4)
+        server = smtplib.SMTP_SSL("smtp.gmail.com", 465,
+            context=ssl.create_default_context())
+        server.login(gmail_account, gmail_password)
+        server.send_message(msg) # メールの送信
+        print("ok.")
+        return jsonify({"status":"success","uid":uid})
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -168,6 +200,7 @@ def login():
                 else:
                     friends.append({"friend_name":friend_or_group_name, "friend_uid":friend_or_group_uid})
             return jsonify({
+                "status":"success",
                 "friend": friends,
                 "group": groups,
                 "uid": user_id
@@ -198,6 +231,31 @@ def get_friend_list():
     if type == "get_friend":
         uid = datas["uid"]
 
+@app.route("/unregister", methods=["POST"])
+def delete_account():
+    raw_datas = request.get_data()
+    datas = json.loads(raw_datas)
+    type = datas["type"]
+    if type == "unregister":
+        uid = datas["uid"]
+        cur.execute(f'DELETE FROM users WHERE id="{uid}"')
+        conn.commit()
+        return jsonify({"status":"success"})
+
+@app.route("/invite_into_group", methods=["POST"])
+def invite_into_group():
+    raw_datas = request.get_data()
+    datas = json.loads(raw_datas)
+    type = datas["type"]
+    if type == "invite_into_group":
+        target_uid = datas["target_uid"]
+        to = datas["to"]
+        uid = datas["uid"]
+        cur.execute(f'SELECT name FROM gid WHERE gid="{to}"')
+        group_name = cur.fetchone()[0]
+        user_cur.execute(f'INSERT INTO {target_uid} values("{to}", "{group_name}")')
+        return jsonify({"status":"success","gid":to})
+
 @app.route("/get_message", methods=["POST"])
 def get_messages():
     raw_datas = request.get_data()
@@ -216,7 +274,7 @@ def get_messages():
                 send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number})
             else:
                 break
-        return jsonify({"datas":send_datas})
+        return jsonify({"status":"success","datas":send_datas})
 
 @app.route("/forgot_password", methods=["POST"])
 def forgot_password():
@@ -250,7 +308,7 @@ def forgot_password():
         server.login(gmail_account, gmail_password)
         server.send_message(msg) # メールの送信
         print("ok.")
-        return jsonify({"uid":uid})
+        return jsonify({"status":"success","uid":uid})
     if type == "forgot_password":
         otp = int(datas["otp"])
         uid = datas["uid"]
@@ -274,5 +332,14 @@ def forgot_password():
             return jsonify({"status":"success"})
         else:
             return jsonify({"status":"failed", "reason":"otp was not matched before, or unexpected access from user"})
+
+@app.route("/spec")
+def spec():
+    return jsonify(swagger(app))
+
+@app.route("/test")
+def test():
+    return "ok"
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
