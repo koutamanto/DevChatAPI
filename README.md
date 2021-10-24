@@ -325,6 +325,8 @@ Response JSON:
 }
 ```
 
+#### Send Message(Image)
+
 URL: /send_image_message
 
 Request JSON:
@@ -339,6 +341,14 @@ Request JSON:
 }
 ```
 
+Response JSON:
+```
+{
+  "status":"success", 
+  "type":"image", 
+  "url":"http://163.44.249.252/images/ファイル名.拡張子" #例:"http://163.44.249.252/images/Unko931.png"
+}
+```
 
 #### Get Messages
 
