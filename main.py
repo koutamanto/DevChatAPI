@@ -1,4 +1,7 @@
+import base64
+from io import BytesIO
 import uuid
+from PIL import Image
 from flask import Flask, jsonify, request
 import sqlite3, json, requests
 from flask.templating import render_template
@@ -6,6 +9,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from datetime import datetime
 from flask_swagger import swagger
+from werkzeug.utils import send_file
 
 app = Flask(__name__)
 
@@ -24,8 +28,8 @@ message_cur = message_conn.cursor()
 #cur.execute("CREATE TABLE gid(gid nvarchar[16], name STRING)")
 #cur.execute("CREATE TABLE message(type STRING, body STRING, tid nvarchar[16], fid nvarchar[16])")
 
-@app.route("/send_message", methods=["POST"])
-def handle_message():
+@app.route("/send_text_message", methods=["POST"])
+def handle_text_message():
     raw_datas = request.get_data()
     datas = json.loads(raw_datas)
     from_uid = datas["from"]
@@ -43,10 +47,48 @@ def handle_message():
     number = int(last_number) + 1
     if msg_type == "text":
         text = message["content"]
-        message_cur.execute(f'INSERT INTO {to} values("{text}", "{from_uid}", "{name}", {unix}, {number})')
+        message_cur.execute(f'INSERT INTO {to} values("{text}", "{from_uid}", "{name}", {unix}, {number}, "{msg_type}")')
         
         message_conn.commit()
         return jsonify({"status":"success"})
+
+@app.route("/images/<string:filename>")
+def send_uploaded_images(filename):
+    return send_file("/root/DevChatAPI/images/" + filename, mimetype="image/gif")
+
+@app.route("/send_image_message", methods=["POST"])
+def handle_image_message():
+    raw_datas = request.get_data()
+    datas = json.loads(raw_datas)
+    from_uid = datas["from"]
+    to = datas["to"]
+    message = datas["message"]
+    msg_type = message["type"]
+    filename = message["filename"]
+    cur.execute(f'SELECT name FROM users WHERE id="{from_uid}"')
+    name = cur.fetchone()[0]
+    unix = datetime.now().timestamp()
+    message_cur.execute(f'SELECT MAX(number) FROM {to}')
+    last_number = message_cur.fetchone()[0]
+    image = message["content"]
+    img = base64.b64decode(image) # base64に変換された画像データを元のバイナリデータに変換 # bytes
+    img = BytesIO(img)
+    image = Image.open(img)
+    image.save("/root/DevChatAPI/images/" + filename)
+    print(last_number)
+    if last_number == None:
+        last_number = 0
+    number = int(last_number) + 1
+    if msg_type == "image":
+        url = "http://163.44.249.252/images/" + filename
+        message_cur.execute(f'INSERT INTO {to} values("{url}", "{from_uid}", "{name}", {unix}, {number}, "{msg_type}")')
+        
+        message_conn.commit()
+        return jsonify({
+            "status":"success", 
+            "type":"image", 
+            "url":"http://163.44.249.252/images/" + filename
+        })
 
 @app.route("/delete_group", methods=["POST"])
 def delete_group():
@@ -70,7 +112,7 @@ def create_group():
         uuid32 = uuid.uuid1().hex
         gid = "g" + uuid32[:15]
         print(gid)
-        message_cur.execute(f'CREATE TABLE {gid} (content STRING, uid nvarchar[16], name STRING, unix REAL, number INTEGER)')
+        message_cur.execute(f'CREATE TABLE {gid} (content STRING, uid nvarchar[16], name STRING, unix REAL, number INTEGER, type STRING)')
         cur.execute(f'INSERT INTO gid values("{gid}", "{name}")')
         conn.commit()
         return jsonify({"status":"success","gid":gid})
@@ -256,12 +298,12 @@ def invite_into_group():
         user_cur.execute(f'INSERT INTO {target_uid} values("{to}", "{group_name}")')
         return jsonify({"status":"success","gid":to})
 
-@app.route("/get_message", methods=["POST"])
-def get_messages():
+@app.route("/get_recent_message", methods=["POST"])
+def get_recent_messages():
     raw_datas = request.get_data()
     datas = json.loads(raw_datas)
     type = datas["type"]
-    if type == "get_message":
+    if type == "get_recent_message":
         gid = datas["gid"]
         message_cur.execute(f'SELECT content, uid, name, unix, number FROM {gid}')
         datas = message_cur.fetchall()
@@ -270,10 +312,25 @@ def get_messages():
         for data in datas:
             if count < 100:
                 count = count + 1
-                content, uid, name, unix, number = data
-                send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number})
+                content, uid, name, unix, number, type = data
+                send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number, "type":type})
             else:
                 break
+        return jsonify({"status":"success","datas":send_datas})
+
+@app.route("/get_all_message", methods=["POST"])
+def get_all_messages():
+    raw_datas = request.get_data()
+    datas = json.loads(raw_datas)
+    type = datas["type"]
+    if type == "get_all_message":
+        gid = datas["gid"]
+        message_cur.execute(f'SELECT content, uid, name, unix, number FROM {gid}')
+        datas = message_cur.fetchall()
+        send_datas = []
+        for data in datas:
+            content, uid, name, unix, number, type = data
+            send_datas.append({"content":content, "uid":uid, "name":name, "unix":unix, "number":number, "type":type})
         return jsonify({"status":"success","datas":send_datas})
 
 @app.route("/forgot_password", methods=["POST"])
