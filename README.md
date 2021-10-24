@@ -304,7 +304,7 @@ Response JSON
 
 #### Send Message(Text)
 
-URL: /send_message
+URL: /send_text_message
 
 Request JSON:
 ```
@@ -324,6 +324,21 @@ Response JSON:
   "status":"success"
 }
 ```
+
+URL: /send_image_message
+
+Request JSON:
+```
+{
+  "from": "u1234567890abcde",
+  "to": "g1234567890abcde",
+  "message": {
+    "type": "image",
+    "content": "byte codes" #base64でエンコードした画像のバイトコード
+    }
+}
+```
+
 
 #### Get Messages
 
