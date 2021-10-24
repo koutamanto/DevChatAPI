@@ -327,12 +327,12 @@ Response JSON:
 
 #### Get Messages
 
-URL: /get_message
+URL: /get_all_message
 
 Request JSON:
 ```
 {
-  "type":"get_message", 
+  "type":"get_all_message", 
   "gid":"g1234567890abcde")
 }
 ```
@@ -354,6 +354,47 @@ Response JSON:
       "name": "逆張り挨拶おじさん", 
       "unix": 1634343840.12345, 
       "number": 2
+    }
+  ]
+}
+```
+
+URL: /get_recent_message
+
+Request JSON:
+```
+{
+  "type":"get_recent_message", 
+  "gid":"g1234567890abcde")
+}
+```
+
+Response JSON:
+```
+{
+  "datas":[
+    {
+      "content":"こんにちは", 
+      "uid": "u1029384756abced", 
+      "name": "通りすがりのユーザー", 
+      "unix": 1634343835.846011, 
+      "number": 80 #最新から100件前
+    },
+    {
+      "content":"こんにちは", 
+      "uid": "u1029384756abced", 
+      "name": "逆張り挨拶おじさん", 
+      "unix": 1634343840.12345, 
+      "number": 81
+    }
+  ]
+  ...
+      {
+      "content":"最新のメッセージだヨ！",
+      "uid": "u1029384756abced", 
+      "name": "最新おじさん", 
+      "unix": 1634343840.12345, 
+      "number": 180
     }
   ]
 }
