@@ -19,6 +19,14 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Send message(Text)
 - Get messages
 
+### If body of request has no or invalid type param:
+```
+{
+  "status":"failed",
+  "reason":"invalid type"
+}
+```
+
 ## Requests
 ### Sign Up
 
