@@ -15,6 +15,12 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Join Group
 - Invite Into Group
 
+### Folder
+
+- Make Folder
+- Put Into Folder
+- Delete Folder
+
 ### Message
 - Send message(Text)
 - Get messages
@@ -305,6 +311,56 @@ Response JSON
 ```
 {
   "gid": "g1234567890abcde" #招待が成功したグループのgid
+}
+```
+
+### Folder
+
+#### Make Folder
+
+URL: /make_folder
+
+Request JSON:
+```
+{
+    "type":"make_folder",
+    "uid": "u1234567890abcde",
+    "name": "フォルダー名"
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success",
+  "fid": "f1234567890abcde"
+}
+```
+
+#### Put Into Folder
+
+URL: /put_into_folder
+
+Request JSON:
+```
+{
+    "type":"put_into_folder",
+    "uid": "u1234567890abcde",
+    "gid": "g1234567890abcde",
+    "fid": "f1234567890abcde"
+}
+```
+
+#### Delete Folder
+
+URL: /delete_folder
+
+Request JSON:
+```
+{
+    "type":"delete_folder",
+    "uid":"u1234567890abcde",
+    "fid":"f1234567890abcde"
 }
 ```
 
