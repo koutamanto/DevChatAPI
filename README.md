@@ -9,12 +9,12 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Forgot Password(Change Password)
 
 ### Group
-
+- Upload Group Icon(Change)
 - Create group
 - Delete Group
 - Join Group
 - Invite Into Group
-
+- Leave Group
 ### Folder
 
 - Make Folder
@@ -25,6 +25,9 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Send message(Text)
 - Get messages
 
+### User
+- Upload User Icon(Change)
+- Add Friend
 ### If body of request has no or invalid type param:
 ```
 {
