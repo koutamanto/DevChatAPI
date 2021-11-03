@@ -1,11 +1,14 @@
+import json
 import requests
 from login import login
-
-uid = login()["uid"]
-datas = {
-  "type": "create_group",
-  "from": uid,
-  "name": "画像送信テストぐる"
-}
-r = requests.post("http://163.44.249.252/create_group", json=datas)
-print(r, r.text)
+def create_group(name):
+  uid = login()["uid"]
+  datas = {
+    "type": "create_group",
+    "from": uid,
+    "name": name
+  }
+  r = requests.post("http://163.44.249.252/create_group", json=datas)
+  r_datas = json.loads(r.text)
+  print(r, r_datas)
+  return r_datas

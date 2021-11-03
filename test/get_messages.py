@@ -5,7 +5,7 @@ def get_messages():
     datas = login()
 
     for group in datas["group"]:
-        gid = group["group_uid"]
+        gid = group["gid"]
         print(gid)
     r = requests.post("http://163.44.249.252/get_message", json={"type":"get_message", "gid":input("gid:")})
     r_datas = json.loads(r.text)["datas"]
