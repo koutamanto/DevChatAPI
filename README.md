@@ -15,9 +15,23 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Join Group
 - Invite Into Group
 
+### Folder
+
+- Make Folder
+- Put Into Folder
+- Delete Folder
+
 ### Message
 - Send message(Text)
 - Get messages
+
+### If body of request has no or invalid type param:
+```
+{
+  "status":"failed",
+  "reason":"invalid type"
+}
+```
 
 ## Requests
 ### Sign Up
@@ -104,15 +118,32 @@ URL : /login
 Response JSON(friend & group list):
 ```
 {
-  "friend": [
-    {"friend_uid":"u0987654321abcde", "friend_name": "ともさん"},
-    {"friend_uid":"u1029384756abedc", "friend_name": "かっちゃん"}
-  ],
-  "group": [
-    {"group_uid":"g1234567890abcde", "friend_name": "一関高専焼肉部"},
-    {"group_uid":"g01928dd464ffdca", "friend_name": "椅子の足ファンクラブ"}
-  ]
-  "uid":"u1234567890abcde" # "u" + 15 digits hex = 16 digits uid
+    "folders":[
+        {
+            "fid": "folder`s id", 
+            "name": "folder`s name",
+            "groups": [
+                "gid",
+                "gid",
+                "gid",
+                "gid",
+                "gid"
+            ]
+        }
+    ],
+    "groups": [
+        {
+            "gid": "gid",
+            "name": "group name",
+            "icon_url": "http://example.icon.url.dev/"
+        }
+    ],
+    "friends": [
+        {"uid": "uid", "name": "friend name", "icon_url": "http://example.icon.url.dev/"}, //友達登録してある人
+        {"uid": "uid", "name": "friend name", "icon_url": "http://example.icon.url.dev/"},
+        {"uid": "uid", "name": "friend name", "icon_url": "http://example.icon.url.dev/"},
+        {"uid": "uid", "name": "friend name", "icon_url": "http://example.icon.url.dev/"}
+    ]
 }
 ```
 
@@ -300,11 +331,61 @@ Response JSON
 }
 ```
 
+### Folder
+
+#### Make Folder
+
+URL: /make_folder
+
+Request JSON:
+```
+{
+    "type":"make_folder",
+    "uid": "u1234567890abcde",
+    "name": "フォルダー名"
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success",
+  "fid": "f1234567890abcde"
+}
+```
+
+#### Put Into Folder
+
+URL: /put_into_folder
+
+Request JSON:
+```
+{
+    "type":"put_into_folder",
+    "uid": "u1234567890abcde",
+    "gid": "g1234567890abcde",
+    "fid": "f1234567890abcde"
+}
+```
+
+#### Delete Folder
+
+URL: /delete_folder
+
+Request JSON:
+```
+{
+    "type":"delete_folder",
+    "uid":"u1234567890abcde",
+    "fid":"f1234567890abcde"
+}
+```
+
 ### Message
 
 #### Send Message(Text)
 
-URL: /send_message
+URL: /send_text_message
 
 Request JSON:
 ```
@@ -322,6 +403,31 @@ Response JSON:
 ```
 {
   "status":"success"
+}
+```
+
+#### Send Message(Image)
+
+URL: /send_image_message
+
+Request JSON:
+```
+{
+  "from": "u1234567890abcde",
+  "to": "g1234567890abcde",
+  "message": {
+    "type": "image",
+    "content": "byte codes" #base64でエンコードした画像のバイトコード
+    }
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success", 
+  "type":"image", 
+  "url":"http://163.44.249.252/images/ファイル名.拡張子" #例:"http://163.44.249.252/images/Unko931.png"
 }
 ```
 
