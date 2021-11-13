@@ -1,0 +1,35 @@
+img.main-logo {
+    width: 90vw;
+    margin:auto;
+}
+button.login {
+    background-color: #00A4A4;
+    background-color: rgb(0，165，165);
+    width: 80vw;
+    height: 5vh;
+    border-radius: 10px;
+    color: aliceblue;
+}
+button.register {
+    background-color: #f2f2f2;
+    margin-top: 5vh;
+    width: 80vw;
+    height: 5vh;
+    border-radius: 10px;
+}
+p.login {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: aliceblue;
+}
+h2.welcome {
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #009899;
+    font-size: 180%;
+    margin-bottom: 20vh;
+}
+p.register {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #108d8c;
+    font-weight: 600;
+}

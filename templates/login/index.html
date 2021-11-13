@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevChat Web版</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body class="bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="http://devchat.jp/images/devchat-logo.jpg" alt="" class="main-logo justify-content-center">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2 class="login-title text-center">
+                    ログイン
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="email" class="form-label">
+                        <p class="email-label">
+                            メールアドレス
+                        </p>
+                    </label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="user@example.com">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <p class="password-label">
+                            パスワード
+                        </p>
+                    </label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="password">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col d-flex align-items-center justify-content-center">
+                <button type="submit" class="btn login" onclick="login()">
+                    ログイン
+                </button>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col d-flex align-items-center justify-content-center">
+                <a href="/">
+                    <button type="submit" class="btn login">
+                        キャンセル
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function login() {
+            var email = $("#email").val();
+            var password = $("#password").val();
+            document.cookie = 'email=' + email;
+            document.cookie = 'password=' + password;
+            $.ajax({
+                url: "/login",
+                type: "POST",
+                cache: false,
+                dataType: "json",
+                contentType: 'application/json', 
+                data: JSON.stringify({
+                    "type": "log_in",
+                    "mail_address": email,
+                    "pass_word": password
+                }),
+                success: function(o) {
+                    if(o.status == "success") {
+                        var uid = o.uid;
+                        document.cookie = 'uid=' + uid;
+                        location.href = "/home"
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("Error")
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</body>
+</html>

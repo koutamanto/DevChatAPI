@@ -427,7 +427,7 @@ Response JSON:
 {
   "status":"success", 
   "type":"image", 
-  "url":"http://163.44.249.252/images/ファイル名.拡張子" #例:"http://163.44.249.252/images/Unko931.png"
+  "url":"http://devchat.jp/images/ファイル名.拡張子" #例:"http://devchat.jp/images/Unko931.png"
 }
 ```
 

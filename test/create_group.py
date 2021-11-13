@@ -8,7 +8,7 @@ def create_group(name):
     "from": uid,
     "name": name
   }
-  r = requests.post("http://163.44.249.252/create_group", json=datas)
+  r = requests.post(verify=False, url="https://163.44.249.252/create_group", json=datas)
   r_datas = json.loads(r.text)
   print(r, r_datas)
   return r_datas

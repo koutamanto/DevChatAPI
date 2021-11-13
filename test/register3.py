@@ -11,7 +11,7 @@ datas_for_first = {
   "pass_word": pass_word
 }
 
-r = requests.post("http://163.44.249.252/register", json=datas_for_first)
+r = requests.post(verify=False, url="https://163.44.249.252/register", json=datas_for_first)
 print(r, r.text)
 
 uid = input("[4/5] uid:")
@@ -22,5 +22,5 @@ datas = {
   "otp": otp
 }
 
-r = requests.post("http://163.44.249.252/register", json=datas)
+r = requests.post(verify=False, url="https://163.44.249.252/register", json=datas)
 print(r, r.text)

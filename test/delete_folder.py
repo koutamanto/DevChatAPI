@@ -7,6 +7,6 @@ datas = {
     "uid":"u7bd413bc2e1411e",
     "fid":"f02d25536377011e	"
 }
-r = requests.post("http://163.44.249.252/delete_folder", json=datas)
+r = requests.post(verify=False, url="https://163.44.249.252/delete_folder", json=datas)
 r_datas = json.loads(r.text)
 print(r, r_datas)

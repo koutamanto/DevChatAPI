@@ -10,7 +10,7 @@ def invite_into_group(uid, target_uid, to):
         "target_uid":target_uid,
         "to": to
     }
-    r = requests.post(config.base_url + "/invite_into_group", json=datas)
+    r = requests.post(verify=False, url=config.base_url + "/invite_into_group", json=datas)
     r_datas = json.loads(r.text)
     print(r, r_datas)
     return r_datas

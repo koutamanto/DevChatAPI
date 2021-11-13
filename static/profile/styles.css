@@ -1,0 +1,11 @@
+.faceicon img {
+    height: auto;
+    border-radius: 50%;
+    margin-left: 25vw;
+    margin-top: 10vw;
+}
+h2.user-name {
+    text-align: center;
+    margin-top: 15vw;
+    font-size: 300%;
+}

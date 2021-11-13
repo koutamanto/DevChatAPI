@@ -9,9 +9,9 @@ from PIL import Image
 
 config = Config()
 
-uid = loginV2("koutamanto@gmail.com", "kouta1014")["uid"]
-
-img = Image.open("icon_medical_woman03.png")
+#uid = loginV2("koutamanji@gmail.com", "kouta1014")["uid"]
+uid = "uaa40e1d4402111e"
+img = Image.open("default_icon.png")
 buffered = BytesIO()
 img.save(buffered, format="PNG")
 img_byte = buffered.getvalue() # bytes

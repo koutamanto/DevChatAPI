@@ -8,7 +8,7 @@ def login():
         "pass_word": "kouta1014"
     }
 
-    r = requests.post("http://163.44.249.252/login", json=datas)
+    r = requests.post(verify=False, url="https://163.44.249.252/login", json=datas)
     print(r, json.loads(r.text))
     return json.loads(r.text)
 def loginV2(email, password):
@@ -18,6 +18,6 @@ def loginV2(email, password):
         "pass_word": password
     }
 
-    r = requests.post("http://163.44.249.252/login", json=datas)
+    r = requests.post(verify=False, url="https://163.44.249.252/login", json=datas)
     print(r, json.loads(r.text))
     return json.loads(r.text)

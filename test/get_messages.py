@@ -7,7 +7,7 @@ def get_messages():
     for group in datas["group"]:
         gid = group["gid"]
         print(gid)
-    r = requests.post("http://163.44.249.252/get_message", json={"type":"get_message", "gid":input("gid:")})
+    r = requests.post(verify=False, url="https://163.44.249.252/get_message", json={"type":"get_message", "gid":input("gid:")})
     r_datas = json.loads(r.text)["datas"]
     print(r, r_datas)
     for message in r_datas:
