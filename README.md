@@ -9,12 +9,12 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Forgot Password(Change Password)
 
 ### Group
-
+- Upload Group Icon(Change)
 - Create group
 - Delete Group
 - Join Group
 - Invite Into Group
-
+- Leave Group
 ### Folder
 
 - Make Folder
@@ -25,6 +25,9 @@ Created By KJunkie Using Python/Flask/SQLite3/Requests/JSON etc.
 - Send message(Text)
 - Get messages
 
+### User
+- Upload User Icon(Change)
+- Add Friend
 ### If body of request has no or invalid type param:
 ```
 {
@@ -331,6 +334,49 @@ Response JSON
 }
 ```
 
+#### Upload Group Icon(Change)
+
+URL: /upload_group_icon
+
+Request JSON:
+```
+{
+    "type":"upload_group_icon",
+    "gid":"g1234567890abcde" #gid,
+    "content": "afhsvuBNUJHr84759FHJRF89..." #base64 encoded image str,
+    "filename": "g1234567890abcde.png" #(gid + ".png)
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success",
+  "icon_url": "http://163.44.249.252/images/g1234567890abcde.png" #icon_url
+}
+```
+
+#### Leave Group
+
+URL: /leave_group
+
+Request JSON:
+```
+{
+  "type": "leave_group",
+  "uid":"u1234567890abcde",
+  "gid":"g1234567890"
+}
+```
+
+Response JSON:
+
+```
+{
+  "status":"success"
+}
+```
+
 ### Folder
 
 #### Make Folder
@@ -505,3 +551,47 @@ Response JSON:
   ]
 }
 ```
+
+### User
+
+#### Upload User Icon(Change)
+
+URL: /upload_icon
+
+Request JSON:
+```
+{
+    "type":"upload_icon",
+    "uid":"u1234567890abcde",
+    "content": "ASujbnfvdsohjboAEFOUHjb==..." #base64 encoded image str,
+    "filename": "u1234567890abcde.png" #uid + ".png"
+
+}
+```
+
+Response JSON:
+```
+{
+  "status":"success",
+  "icon_url": "http://163.44.249.252/images/u1234567890abcde.png" #icon_url
+}
+```
+
+#### Add Friend
+
+URL: /add_friend
+
+Request JSON:
+```
+{
+  "type": "add_friend",
+  "from_uid":"u1234567890abcde", #sender mid
+  "target_uid":"u10293847856aedcd" #target mid to add
+}
+```
+
+Response JSON:
+{
+  "status": "success",
+  "target_uid": target_uid
+}
