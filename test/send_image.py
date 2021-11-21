@@ -4,7 +4,7 @@ import requests, json
 with open("test.png", "rb") as image_file:
 
     datas = {
-        "from": input("uid:"),
+        "sender": input("uid:"),
         "to": input("to:"),
         "message": {
             "type": "image",

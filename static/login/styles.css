@@ -1,3 +1,7 @@
+@font-face {
+    font-family: UIFont;
+    src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+}
 button.login {
     background-color: #00A4A4;
     margin-top: 5vh;
@@ -8,7 +12,7 @@ button.login {
 }
 .login-title {
     font-weight: bold;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "UIFont";
     color: #009899;
     font-size: 180%;
     margin-bottom: 10vh;
@@ -16,15 +20,15 @@ button.login {
 p.email-label {
     color: #108d8c;
     font-weight: 700;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "UIFont";
 }
 p.username-label {
     color: #108d8c;
     font-weight: 700;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "UIFont";
 }
 p.password-label {
     color: #108d8c;
     font-weight: 700;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "UIFont";
 }

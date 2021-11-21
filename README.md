@@ -262,7 +262,7 @@ Request JSON
 ```
 {
   "type": "create_group",
-  "from": "u1234567890abcde",
+  "sender": "u1234567890abcde",
   "name": "グループ名"
 }
 ```
@@ -436,7 +436,7 @@ URL: /send_text_message
 Request JSON:
 ```
 {
-  "from": "u1234567890abcde", 
+  "sender": "u1234567890abcde", 
   "to":"g1234567890abcde",
   "message":{
     "type":"text", 
@@ -459,7 +459,7 @@ URL: /send_image_message
 Request JSON:
 ```
 {
-  "from": "u1234567890abcde",
+  "sender": "u1234567890abcde",
   "to": "g1234567890abcde",
   "message": {
     "type": "image",

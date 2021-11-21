@@ -5,7 +5,7 @@ def create_group(name):
   uid = login()["uid"]
   datas = {
     "type": "create_group",
-    "from": uid,
+    "uid""": uid,
     "name": name
   }
   r = requests.post(verify=False, url="https://163.44.249.252/create_group", json=datas)

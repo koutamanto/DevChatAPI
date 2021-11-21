@@ -12,6 +12,6 @@ uid = datas["uid"]
 #gid = "g2269baca2d9c11e"
 gid = input("gid:")
 text = input("text:")
-datas = {"from":uid, "to":gid, "message":{"type":"text", "content":text}}
+datas = {"sender":uid, "to":gid, "message":{"type":"text", "content":text}}
 r = requests.post(verify=False, url="https://163.44.249.252/send_message", json=datas)
 print(r, r.text)

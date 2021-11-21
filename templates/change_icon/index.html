@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevChat Web版</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='profile/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='login/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='profile/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -48,10 +48,12 @@
     <script>
         function upload_icon() {
             file = $("#icon").prop('files')[0];
-            var fr = new FileReader();
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
             //fr.onload = receivedText;
             //fr.readAsText(file);
-            fr.onload = function() {
+            reader.onload = function() {
+                var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
                 $.ajax({
                     url: "/upload_icon",
                     type: "POST",
@@ -61,7 +63,8 @@
                     data: JSON.stringify({
                         "type": "upload_icon",
                         "uid": "{{uid}}",
-                        "content": fr.result
+                        "content": base64result,
+                        "filename": file.name
                     }),
                     success: function(o) {
                         if(o.status == "success") {

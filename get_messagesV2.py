@@ -1,5 +1,5 @@
 import requests, json
-from login import login
+from login import login, loginV2
 
 def get_messagesV2(gid):    
     datas = login()
@@ -15,3 +15,9 @@ def get_messagesV2(gid):
 #        number = message["number"]
 #        unix = message["unix"]
 #        print(content, name, uid, number, unix)
+
+def get_messagesV3(email, password, gid):
+    datas = loginV2(email, password)
+    r = requests.post(verify=False, url="https://163.44.249.252/get_recent_message", json={"type":"get_recent_message", "gid":gid})
+    r_datas = json.loads(r.text)["datas"]
+    return r_datas

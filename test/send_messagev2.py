@@ -10,6 +10,6 @@ to = input("to(gid):")
 
 while True:
     text = input("text:")
-    datas = {"from":uid, "to":to, "message":{"type":"text", "content":text}}
+    datas = {"sender":uid, "to":to, "message":{"type":"text", "content":text}}
     r = requests.post(verify=False, url="https://163.44.249.252/send_message", json=datas)
     print(r, r.text)

@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevChat Web版</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="manifest" href="/static/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script data-ad-client="ca-pub-9832656971052253" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body class="bg-white">
     <div class="container">
@@ -56,10 +57,10 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
     <!-- FCMの読込 -->
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-messaging.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/1.4.3/eruda.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/1.4.3/eruda.min.js"></script> -->
     <script>
-        eruda.init();
-        navigator.serviceWorker.register('/static/firebase-messaging-sw.js')'
+        //eruda.init();
+        navigator.serviceWorker.register('/static/firebase-messaging-sw.js')
         // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyCtnBmAroB9LIeE7xgos2NkqIbEgzv5ZWA",

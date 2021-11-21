@@ -128,7 +128,7 @@ def upload_group_icon():
 def handle_text_message():
     raw_datas = request.get_data()
     datas = json.loads(raw_datas)
-    from_uid = datas["from"]
+    from_uid = datas["sender"]
     to = datas["to"]
     message = datas["message"]
     msg_type = message["type"]
@@ -254,7 +254,7 @@ def add_friend_route():
 def handle_image_message():
     raw_datas = request.get_data()
     datas = json.loads(raw_datas)
-    from_uid = datas["from"]
+    from_uid = datas["sender"]
     to = datas["to"]
     message = datas["message"]
     msg_type = message["type"]
@@ -306,7 +306,7 @@ def create_group():
         datas = json.loads(raw_datas)
         msg_type = datas["type"]
         if msg_type == "create_group":
-            from_uid = datas["from"]
+            from_uid = datas["uid"]
             name = datas["name"]
             uuid32 = uuid.uuid1().hex
             gid = "g" + uuid32[:15]

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: UIFont;
+  src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+}
 /*以下、①背景色など*/
 .line-bc {
     height: max-content;
@@ -88,4 +92,36 @@
   .app-bar {
     background-color: rgba(0, 0, 0, 0.452);
     color: aliceblue;
+  }
+  .group-name {
+    width: 60vw;
+  }
+  .header {
+    min-width: 100vw;
+  }
+  .setting-btn {
+    fill: #ffffff;
+  }
+  .log {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: aliceblue;
+    border-radius: 2rem;
+    text-align: center;
+  }
+  #log-timestamp {
+    margin-bottom: -3px;
+    text-align: center;
+  }
+  #mycomment-timestamp{
+    margin-top: -10px;
+    font-size: 60%;
+    margin-right: 13px;
+  }
+  #says-timestamp{
+    margin-top: 0px;
+    margin-left: 50px;
+    font-size: 60%;
+  }
+  .html-message {
+    margin-left: 50px;
   }

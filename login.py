@@ -8,8 +8,8 @@ def login():
         "pass_word": "kouta1014"
     }
 
-    r = requests.post(verify=False, url="https://163.44.249.252/login", json=datas)
-    print(r, json.loads(r.text))
+    r = requests.post(verify=False, url="https://devchat.jp/login", json=datas)
+    #print(r, json.loads(r.text))
     return json.loads(r.text)
 def loginV2(email, password):
     datas = {
@@ -17,6 +17,6 @@ def loginV2(email, password):
         "mail_address": email,
         "pass_word": password
     }
-    r = requests.post(verify=False, url="https://163.44.249.252/login", json=datas)
-    print(r, json.loads(r.text))
+    r = requests.post(verify=False, url="https://devchat.jp/login", json=datas)
+    #print(r, json.loads(r.text))
     return json.loads(r.text)

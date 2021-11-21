@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevChat Web版</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='login/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='profile/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body class="bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="faceicon">
+                    <img src="{{icon_url}}" alt="" width="50%">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2 class="user-name">
+                    {{name}}
+                </h2>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col d-flex align-items-center justify-content-center">
+                <a href="/add/{{uid}}">
+                    <button class="btn login">
+                        <p class="login">
+                            追加する
+                        </p>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</body>
+</html>
