@@ -44,9 +44,10 @@ class sendHTMLMessageResponse(BaseModel):
     url: str
 
 class uploadGroupIcon(BaseModel):
-    type: str = "upload_icon"
+    type: str = "upload_group_icon"
     gid: str
     content: str
+    filename: str
 
 class sendImageMessage(BaseModel):
     type: str = "send_image_message"
@@ -103,6 +104,8 @@ class group(BaseModel):
     name: str = None
     gid: str = None
     icon_url: str = None
+    last_message: str = None
+    unix: float = None
 
 class folder(BaseModel):
     name: str = None
@@ -232,6 +235,7 @@ class forgotPasswordResponse(BaseModel):
 
 class resetPassword(BaseModel):
     type: str = "reset_password"
+    uid: str
     new_password: str
 
 class addFriendResponse(BaseModel):
@@ -242,3 +246,16 @@ class addFriend(BaseModel):
     type: str = "add_friend"
     from_uid: str
     target_uid: str
+
+class isChatChanged(BaseModel):
+    last_num: int
+    gid: str
+
+class isChatChangedResponse(BaseModel):
+    status: bool
+    nums: List[int]
+
+class getNewMessage(BaseModel):
+    type: str = "get_new_message"
+    gid: str
+    nums: List[int]

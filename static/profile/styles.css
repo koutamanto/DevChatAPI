@@ -1,36 +1,78 @@
-@font-face {
-    font-family: UIFont;
-    src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+@media screen and (max-width: 480px) {
+    @font-face {
+        font-family: UIFont;
+        src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+    .faceicon img {
+        height: auto;
+        border-radius: 50%;
+        margin-left: 25vw;
+        margin-top: 10vw;
+    }
+    h2.user-name {
+        text-align: center;
+        margin-top: 15vw;
+        font-size: 300%;
+    }
+    h2.group-name {
+        text-align: center;
+        margin-top: 5vh;
+        margin-bottom:5vh;
+        font-size: 200%;
+    }
+    h2.member-list-title {
+        font-size: 150%;
+        color: #009899;
+        font-weight: bold;
+        font-family: 'Zen Maru Gothic', sans-serif;
+    }
+    .header {
+        background-color: rgba(0, 0, 0, 0.452);
+        color: aliceblue;
+    }
+    .group-setting-title {
+        text-align: center;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
 }
-.faceicon img {
-    height: auto;
-    border-radius: 50%;
-    margin-left: 25vw;
-    margin-top: 10vw;
-}
-h2.user-name {
-    text-align: center;
-    margin-top: 15vw;
-    font-size: 300%;
-}
-h2.group-name {
-    text-align: center;
-    margin-top: 5vh;
-    margin-bottom:5vh;
-    font-size: 200%;
-}
-h2.member-list-title {
-    font-size: 150%;
-    color: #009899;
-    font-weight: bold;
-    font-family: "UIFont";
-}
-.header {
-    background-color: rgba(0, 0, 0, 0.452);
-    color: aliceblue;
-}
-.group-setting-title {
-    text-align: center;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+@media screen and (min-width: 481px) {
+    @font-face {
+        font-family: UIFont;
+        src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+    .faceicon img {
+        height: auto;
+        border-radius: 50%;
+        margin-left: 25vw;
+        margin-top: 10vw;
+    }
+    h2.user-name {
+        text-align: center;
+        margin-top: 15vw;
+        font-size: 300%;
+    }
+    h2.group-name {
+        text-align: center;
+        margin-top: 5vh;
+        margin-bottom:5vh;
+        font-size: 200%;
+    }
+    h2.member-list-title {
+        font-size: 150%;
+        color: #009899;
+        font-weight: bold;
+        font-family: 'Zen Maru Gothic', sans-serif;
+    }
+    .header {
+        background-color: rgba(0, 0, 0, 0.452);
+        color: aliceblue;
+    }
+    .group-setting-title {
+        text-align: center;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
 }

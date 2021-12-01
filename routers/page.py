@@ -177,6 +177,7 @@ def group_talk(request: Request, gid: str, uid: str = Cookie(None)):
 
 @router.get("/otp_auth")
 def otp_auth_page(request: Request, uid: str = Cookie(None)):
+    print('(otp_auth)[Cookie.uid:]' + uid)
     return templates.TemplateResponse(
         "register/otp.html",
         {
@@ -189,6 +190,13 @@ def otp_auth_page(request: Request, uid: str = Cookie(None)):
 def register_page(request: Request):
     return templates.TemplateResponse(
         "register/index.html",
+        context={"request":request}
+    )
+
+@router.get("/chat_base")
+def chat_base_page(request: Request):
+    return templates.TemplateResponse(
+        "group/base.html",
         context={"request":request}
     )
 

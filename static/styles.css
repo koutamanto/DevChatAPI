@@ -1,40 +1,87 @@
-@font-face {
-    font-family: UIFont;
-    src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+@media screen and (max-width: 480px) {
+    @font-face {
+        font-family: UIFont;
+        src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+    img.main-logo {
+        width: 90vw;
+        margin:auto;
+    }
+    button.login {
+        background-color: #00A4A4;
+        background-color: rgb(0，165，165);
+        width: 80vw;
+        height: 10vw;
+        border-radius: 10px;
+        color: aliceblue;
+        font-family: 'Zen Maru Gothic', sans-serif;
+    }
+    button.register {
+        background-color: #f2f2f2;
+        margin-top: 5vh;
+        width: 80vw;
+        height: 5vh;
+        border-radius: 10px;
+    }
+    p.login {
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: aliceblue;
+    }
+    h2.welcome {
+        font-weight: bold;
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: #009899;
+        font-size: 180%;
+        margin-bottom: 20vh;
+    }
+    p.register {
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: #108d8c;
+        font-weight: 600;
+    }
 }
-img.main-logo {
-    width: 90vw;
-    margin:auto;
-}
-button.login {
-    background-color: #00A4A4;
-    background-color: rgb(0，165，165);
-    width: 80vw;
-    height: 5vh;
-    border-radius: 10px;
-    color: aliceblue;
-    font-family: "UIFont";
-}
-button.register {
-    background-color: #f2f2f2;
-    margin-top: 5vh;
-    width: 80vw;
-    height: 5vh;
-    border-radius: 10px;
-}
-p.login {
-    font-family: "UIFont";
-    color: aliceblue;
-}
-h2.welcome {
-    font-weight: bold;
-    font-family: "UIFont";
-    color: #009899;
-    font-size: 180%;
-    margin-bottom: 20vh;
-}
-p.register {
-    font-family: "UIFont";
-    color: #108d8c;
-    font-weight: 600;
+@media screen and (min-width: 481px) {
+    @font-face {
+        font-family: UIFont;
+        src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+    img.main-logo {
+        width: 30vw;
+        margin-left: 35vw;
+        margin-right: 35vw;
+    }
+    button.login {
+        background-color: #00A4A4;
+        background-color: rgb(0，165，165);
+        width: 30vw;
+        height: 40px;
+        border-radius: 10px;
+        color: aliceblue;
+        font-family: 'Zen Maru Gothic', sans-serif;
+    }
+    button.register {
+        background-color: #f2f2f2;
+        margin-top: 40px;
+        width: 30vw;
+        height: 2vw;
+        border-radius: 10px;
+    }
+    p.login {
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: aliceblue;
+    }
+    h2.welcome {
+        font-weight: bold;
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: #009899;
+        font-size: 250%;
+        margin-bottom: 10vh;
+    }
+    p.register {
+        font-family: 'Zen Maru Gothic', sans-serif;
+        color: #108d8c;
+        font-weight: 600;
+    }
 }

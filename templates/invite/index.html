@@ -45,7 +45,7 @@
                 ),
                 success: function(o) {
                     if(o.status == "success") {
-                        location.href = "/group/" + gid;
+                        document.documentElement.innerHTML = "成功しました。上のボタンで戻ってください。"
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {

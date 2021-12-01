@@ -13,114 +13,226 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body class="bg-black">
-    <!-- Image and text -->
-    <nav class="navbar app-bar fixed-top">
-        <div class="container">
-            <div class="row header">
-                <div class="col-2">
-                    <a href="/home">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
-                            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-                          </svg>
-                    </a>
-                </div>
-                <div class="col-8 group-name">
-                    <p class="title">
-                        {{group_name}}
-                    </p>
-                </div>
-                <div class="col-2">
-                    <a href="/setting/group/{{gid}}" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-wide-connected group-setting justify-content-center setting-btn" viewBox="0 0 16 16">
-                            <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434l.071-.286zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5zm0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78h4.723zM5.048 3.967c-.03.021-.058.043-.087.065l.087-.065zm-.431.355A4.984 4.984 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8 4.617 4.322zm.344 7.646.087.065-.087-.065z"/>
-                        </svg>
-                    </a>
+    <div class="d-block d-sm-none">
+        <nav class="navbar app-bar fixed-top">
+            <div class="container">
+                <div class="row header">
+                    <div class="col-2 d-block d-sm-none">
+                        <a href="/home">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                              </svg>
+                        </a>
+                    </div>
+                    <div class="col-8 group-name">
+                        <p class="title">
+                            {{group_name}}
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <a href="/setting/group/{{gid}}" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-wide-connected group-setting justify-content-center setting-btn" viewBox="0 0 16 16">
+                                <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434l.071-.286zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5zm0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78h4.723zM5.048 3.967c-.03.021-.058.043-.087.065l.087-.065zm-.431.355A4.984 4.984 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8 4.617 4.322zm.344 7.646.087.065-.087-.065z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <div class="line-bc">
-        {% for message in datas %}
-        {% if message['type'] != "log" %}
-        {% if message['uid'] != uid %}
-        <small class="user_name">{{message['name']}}</small>
-        <div class="balloon6">
-            <div class="faceicon">
-                <img src="{{message['icon_url']}}" alt="">
+        </nav>
+        <div class="line-bc">
+            {% for message in datas %}
+            {% if message['type'] != "log" %}
+            {% if message['uid'] != uid %}
+            <small class="user_name">{{message['name']}}</small>
+            <div class="balloon6">
+                <div class="faceicon">
+                    <img src="{{message['icon_url']}}" alt="">
+                </div>
+                <div class="chatting">
+                    {% if message['type'] == "text" %}
+                    <div class="says">
+                        <p>{{message['content']}}</p>
+                    </div>
+                    <p class="timestamp" name="{{message['unix']}}" id="says-timestamp"></p>
+                    {% elif message['type'] == "image" %}
+                    <img src="{{message['content']}}" alt="" width="300">
+                    {% elif message['type'] == "html" %}
+                    <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
+                    {% elif message['type'] == "html_url" %}
+                    <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
+                    {% endif %}
+                </div>
             </div>
-            <div class="chatting">
+            {% elif message['uid'] == uid %}
+            <div class="mycomment">
                 {% if message['type'] == "text" %}
-                <div class="says">
-                    <p>{{message['content']}}</p>
-                </div>
-                <p class="timestamp" name="{{message['unix']}}" id="says-timestamp"></p>
+                  <p>{{message['content']}}</p>
                 {% elif message['type'] == "image" %}
                 <img src="{{message['content']}}" alt="" width="300">
-                {% elif message['type'] == "html" %}
-                <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
-                {% elif message['type'] == "html_url" %}
-                <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
                 {% endif %}
             </div>
-        </div>
-        {% elif message['uid'] == uid %}
-        <div class="mycomment">
-            {% if message['type'] == "text" %}
-              <p>{{message['content']}}</p>
-            {% elif message['type'] == "image" %}
-            <img src="{{message['content']}}" alt="" width="300">
+            <p class="timestamp" name="{{message['unix']}}" id="mycomment-timestamp"></p>
             {% endif %}
-        </div>
-        <p class="timestamp" name="{{message['unix']}}" id="mycomment-timestamp"></p>
-        {% endif %}
-        {% elif message['type'] == "log" %}
-        <p class="timestamp" name="{{message['unix']}}" id="log-timestamp"></p>
-        <div class="log">
-            <p class="log-message">
-                {{message['content']}}
-            </p>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-        <div class="fixed-bottom input-group flex-nowrap">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#imagePickerModal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
-                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
-                  </svg>
-            </button>
-            <textarea name="text" id="text" class="form-control" placeholder="メッセージを入力"></textarea>
-            <button type="submit" class="input-group-text" onclick="sendTextMessage()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                  </svg>
-            </button>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="imagePickerModal" tabindex="-1" aria-labelledby="imagePickerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="imagePickerModalLabel">送信する画像を選択してください</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            {% elif message['type'] == "log" %}
+            <p class="timestamp" name="{{message['unix']}}" id="log-timestamp"></p>
+            <div class="log">
+                <p class="log-message">
+                    {{message['content']}}
+                </p>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="image" class="form-label">画像を選択</label>
-                    <input class="form-control" type="file" id="image" accept="image/jpeg, image/png">
+            {% endif %}
+            {% endfor %}
+        </div>
+            <div class="fixed-bottom input-group flex-nowrap">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#imagePickerModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                      </svg>
+                </button>
+                <textarea name="text" id="text" class="form-control" placeholder="メッセージを入力"></textarea>
+                <button type="submit" class="input-group-text" onclick="sendTextMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                      </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="imagePickerModal" tabindex="-1" aria-labelledby="imagePickerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="imagePickerModalLabel">送信する画像を選択してください</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">画像を選択</label>
+                        <input class="form-control" type="file" id="image" accept="image/jpeg, image/png">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary" onclick="sendImageMessage()">送信する</button>
                 </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-            <button type="button" class="btn btn-primary" onclick="sendImageMessage()">送信する</button>
-            </div>
-        </div>
         </div>
     </div>
+    <div class="d-none d-sm-block">
+        <nav class="navbar app-bar fixed-top">
+            <div class="container">
+                <div class="row header">
+                    <div class="col-2 d-block d-sm-none">
+                        <a href="/home">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                              </svg>
+                        </a>
+                    </div>
+                    <div class="col-8 group-name">
+                        <p class="title">
+                            {{group_name}}
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <a href="/setting/group/{{gid}}" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-wide-connected group-setting justify-content-center setting-btn" viewBox="0 0 16 16">
+                                <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434l.071-.286zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5zm0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78h4.723zM5.048 3.967c-.03.021-.058.043-.087.065l.087-.065zm-.431.355A4.984 4.984 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8 4.617 4.322zm.344 7.646.087.065-.087-.065z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="line-bc">
+            {% for message in datas %}
+            {% set last_num = message['number'] %}
+            {% if message['type'] != "log" %}
+            {% if message['uid'] != uid %}
+            <small class="user_name">{{message['name']}}</small>
+            <div class="balloon6">
+                <div class="faceicon">
+                    <img src="{{message['icon_url']}}" alt="">
+                </div>
+                <div class="chatting">
+                    {% if message['type'] == "text" %}
+                    <div class="says">
+                        <p>{{message['content']}}</p>
+                    </div>
+                    <p class="timestamp" name="{{message['unix']}}" id="says-timestamp"></p>
+                    {% elif message['type'] == "image" %}
+                    <img src="{{message['content']}}" alt="" width="300">
+                    {% elif message['type'] == "html" %}
+                    <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
+                    {% elif message['type'] == "html_url" %}
+                    <iframe src="{{message['content']}}" frameborder="0" width="300" height="800" class="html-message"></iframe>
+                    {% endif %}
+                </div>
+            </div>
+            {% elif message['uid'] == uid %}
+            <div class="mycomment">
+                {% if message['type'] == "text" %}
+                  <p>{{message['content']}}</p>
+                {% elif message['type'] == "image" %}
+                <img src="{{message['content']}}" alt="" width="300">
+                {% endif %}
+            </div>
+            <p class="timestamp" name="{{message['unix']}}" id="mycomment-timestamp"></p>
+            {% endif %}
+            {% elif message['type'] == "log" %}
+            <p class="timestamp" name="{{message['unix']}}" id="log-timestamp"></p>
+            <div class="log">
+                <p class="log-message">
+                    {{message['content']}}
+                </p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <p hidden id="{{last_number}}" class="last_num"></p>
+        </div>
+            <div class="fixed-bottom input-group flex-nowrap">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#imagePickerModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                      </svg>
+                </button>
+                <textarea name="text" id="text" class="form-control" placeholder="メッセージを入力"></textarea>
+                <button type="submit" class="input-group-text" onclick="sendTextMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                      </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="imagePickerModal" tabindex="-1" aria-labelledby="imagePickerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="imagePickerModalLabel">送信する画像を選択してください</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">画像を選択</label>
+                        <input class="form-control" type="file" id="image" accept="image/jpeg, image/png">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary" onclick="sendImageMessage()">送信する</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Image and text -->
     <script>
         function getList() {
             var ajax = new XMLHttpRequest();
@@ -135,13 +247,58 @@
                         console.log(new_messages);
                         document.getElementsByClassName("line-bc")[0].append(new_messages);
                     }
-    //                for(let i = 0; messages.length; i++) {
-    //                    messages[i]
-    //                }
+                    //for(let i = 0; messages.length; i++) {
+                    //    messages[i]
+                    //}
                 }
             };
             ajax.send();
         }
+    //function getList() {
+    //    var last_num = document.getElementsByClassName("last_num")[0].getAttribute("id").valueOf();
+    //    $.ajax({
+    //        url: "https://devchat.jp/is_chat_changed",
+    //        cache: false,
+    //        dataType: "json",
+    //        contentType: 'application/json', 
+    //        data: JSON.stringify({
+    //            "last_num": last_num,
+    //            "gid": "{{gid}}"
+    //        }),
+    //        success: function(o) {
+    //            if(o.status == true) {
+    //                nums = o.nums;
+    //                $.ajax({
+    //                    url: "https://devchat.jp/get_new_message",
+    //                    cache: false,
+    //                    dataType: "json",
+    //                    contentType: 'application/json', 
+    //                    data: JSON.stringify({
+    //                        "type": "get_new_message",
+    //                        "nums": last_num,
+    //                        "gid": "{{gid}}"
+    //                    }),
+    //                    success: function(o) {
+    //                        if(o.status == true) {
+    //                            o.datas
+    //                        }
+    //                        else if(o.status == "failed") {
+    //                            alert(o.reason)
+    //                        }
+    //                    },
+    //                    error: function(xhr, textStatus, errorThrown) {
+    //                        alert("Error")
+    //                    }
+    //                })
+    //            }
+    //            else if(o.status == false) {
+    //            }
+    //        },
+    //        error: function(xhr, textStatus, errorThrown) {
+    //            alert("Error")
+    //        }
+    //    });
+    //}
         window.onload = function () {
             var timestamps = document.getElementsByClassName("timestamp");
             for(i=0;i < timestamps.length; i++){
@@ -190,7 +347,6 @@
             }
         }
         async function sendTextMessage() {
-            text = $("#text").val();
             await location.reload();
             await $.ajax({
                 url: "/send_text_message",
@@ -203,17 +359,20 @@
                     "to": "{{gid}}",
                     "message": {
                         "type": "text",
-                        "content": text
+                        "content": $("#text").val()
                     }
-                })
-                //success: function(o) {
-                //    if(o.status == "success") {
-                //        location.reload()
-                //    }
-                //},
-                //error: function(xhr, textStatus, errorThrown) {
-                //    alert("Error")
-                //}
+                }),
+                success: function(o) {
+                    if(o.status == "success") {
+                        location.reload()
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+//                    alert(textStatus);
+//                    alert(errorThrown);
+                }
             });
         }
     </script>

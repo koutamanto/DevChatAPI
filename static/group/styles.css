@@ -1,16 +1,17 @@
-@font-face {
-  font-family: UIFont;
-  src: url("/static/font/03スマートフォントUI.otf") format("opentype");
-}
-/*以下、①背景色など*/
-.line-bc {
+@media screen and (max-width: 480px) {
+  @font-face {
+    font-family: UIFont;
+    src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+  }
+  /*以下、①背景色など*/
+  .line-bc {
     height: max-content;
     padding: 20px 10px;
     max-width: 450px;
     text-align: right;
     font-size: 14px;
     background: #f7f7f7;
-    margin-bottom: 5vh;
+    padding-bottom: 5vh;
   }
   
   /*以下、②左側のコメント*/
@@ -27,7 +28,7 @@
   }
   
   .balloon6 .faceicon img{
-    width: 100%;
+    width: 50%;
     height: auto;
     border-radius: 50%;
   }
@@ -125,3 +126,133 @@
   .html-message {
     margin-left: 50px;
   }
+}
+@media screen and (min-width: 481px) {
+  @font-face {
+    font-family: UIFont;
+    src: url("/static/font/03スマートフォントUI.otf") format("opentype");
+  }
+  /*以下、①背景色など*/
+  .line-bc {
+    height: max-content;
+    padding: 20px 10px;
+    max-width: 100vw;
+    text-align: right;
+    font-size: 14px;
+    background: #f7f7f7;
+    padding-bottom: 5vh;
+  }
+  
+  /*以下、②左側のコメント*/
+  .balloon6 {
+    width: 100%;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  
+  .balloon6 .faceicon {
+    float: left;
+    margin-right: -50px;
+    width: 40px;
+  }
+  
+  .balloon6 .faceicon img{
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+  }
+  .balloon6 .chatting {
+    width: 100%;
+    text-align: left;
+  }
+  .says {
+    display: inline-block;
+    position: relative; 
+    margin: 0 0 0 50px;
+    padding: 10px;
+    max-width: 250px;
+    border-radius: 12px;
+    background: #edf1ee;
+  }
+  
+  .says:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 3px; 
+    left: -19px;
+    border: 8px solid transparent;
+    border-right: 18px solid #edf1ee;
+    -webkit-transform: rotate(35deg);
+    transform: rotate(35deg);
+  }
+  .says p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /*以下、③右側の緑コメント*/
+  .mycomment {
+    margin: 10px 0;
+  }
+  .mycomment p {
+    display: inline-block;
+    position: relative; 
+    margin: 0 10px 0 0;
+    padding: 8px;
+    max-width: 250px;
+    border-radius: 12px;
+    background: #98c4e7;
+    font-size: 15px:
+  }
+  
+  .mycomment p:after {
+    content: "";
+    position: absolute;
+    top: 3px; 
+    right: -19px;
+    border: 8px solid transparent;
+    border-left: 18px solid #98c4e7;
+    -webkit-transform: rotate(-35deg);
+    transform: rotate(-35deg);
+  }
+  .user_name {
+    margin-right: 70vw;
+  }
+  .app-bar {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: aliceblue;
+  }
+  .group-name {
+    width: 60vw;
+  }
+  .header {
+    min-width: 100vw;
+  }
+  .setting-btn {
+    fill: #ffffff;
+  }
+  .log {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: aliceblue;
+    border-radius: 2rem;
+    text-align: center;
+  }
+  #log-timestamp {
+    margin-bottom: -3px;
+    text-align: center;
+  }
+  #mycomment-timestamp{
+    margin-top: -10px;
+    font-size: 60%;
+    margin-right: 13px;
+  }
+  #says-timestamp{
+    margin-top: 0px;
+    margin-left: 50px;
+    font-size: 60%;
+  }
+  .html-message {
+    margin-left: 50px;
+  }
+}

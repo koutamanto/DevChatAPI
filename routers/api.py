@@ -17,6 +17,7 @@ from models.model import *
 from PIL import Image
 sys.path.append("../")
 from add_friend import add_friend
+from invite_into_group import invite_into_groupV2
 templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(default_response_class=UJSONResponse)
@@ -90,8 +91,18 @@ def upload_group_icon(raw: uploadGroupIcon):
         img = base64.b64decode(image) # base64に変換された画像データを元のバイナリデータに変換 # bytes
         img = BytesIO(img)
         image = Image.open(img)
+        center_x = int(image.width / 2)
+        center_y = int(image.height / 2)
+        if image.width < image.height:
+            shorter_one = image.width
+        elif image.width > image.height:
+            shorter_one = image.height
+        elif image.width == image.height:
+            shorter_one = image.height
+        new_size = shorter_one
+        img_crop = image.crop((center_x - new_size / 2, center_y - new_size / 2, center_x + new_size / 2, center_y + new_size / 2))
         filename = datas["filename"]
-        image.save("/root/DevChatAPI/images/" + filename)
+        img_crop.save("/root/DevChatAPI/images/" + filename)
         icon_url = "http://devchat.jp/images/" + filename
         cur.execute(f'update gid set icon_url="{icon_url}" WHERE gid="{gid}"')
         conn.commit()
@@ -101,6 +112,22 @@ def upload_group_icon(raw: uploadGroupIcon):
         }
     else:
         return {"status":"failed", "reason":"invalid type"}
+
+@router.post("/is_chat_changed", response_model=isChatChangedResponse)
+def is_chat_changed(raw: isChatChanged):
+    datas = jsonable_encoder(raw)
+    last_num = datas["last_num"]
+    gid = datas["gid"]
+
+    message_cur.execute(f'SELECT number FROM {gid}"')
+    database_nums = message_cur.fetchall()
+    database_last_num = database_nums[-1]
+    if database_last_num == last_num:
+        return {"status":False}
+    elif database_last_num != last_num:
+        amount = int(database_last_num) - int(last_num)
+        return {"status":True, "nums":[database_nums[-1:-amount]]}
+        
 
 @router.post("/send_html_message_with_url", response_model=sendHTMLMessageResponse)
 def send_html_message_with_url(raw: sendHTMLMessage):
@@ -468,6 +495,7 @@ def sign_up(raw: signUp, token: str = Cookie(None)):
     op_type = datas["type"]
     if op_type == "sign_up":
         uid = datas["uid"]
+        print(uid)
         otp = datas["otp"]
         cur.execute(f'INSERT INTO fcm values("{uid}", "{token}")')
         conn.commit()
@@ -511,12 +539,14 @@ def sign_up(raw: signUp, token: str = Cookie(None)):
         )
         server.login(gmail_account, gmail_password)
         server.send_message(msg)  # メールの送信
-        cur.execute(f'SELECT name FROM gid WHERE gid="g56db0108475d11e"')
-        name = cur.fetchone()[0]
-        user_cur.execute(f'INSERT INTO {uid} values("g56db0108475d11e", "{name}")')
-        user_conn.commit()
-        group_cur.execute(f'INSERT INTO g56db0108475d11e values("{uid}", "{name}", "https://devchat.jp/images/{uid}.png", "{mail_to}")')
-        group_conn.commit()
+        public_gid = "g56db0108475d11e"
+        invite_into_groupV2("ub56e2352490711e", uid, public_gid)
+        # cur.execute(f'SELECT name FROM gid WHERE gid="g56db0108475d11e"')
+        # name = cur.fetchone()[0]
+        # user_cur.execute(f'INSERT INTO {uid} values("g56db0108475d11e", "{name}")')
+        # user_conn.commit()
+        # group_cur.execute(f'INSERT INTO g56db0108475d11e values("{uid}", "{name}", "https://devchat.jp/images/{uid}.png", "{mail_to}")')
+        # group_conn.commit()
         add_friend(uid, "u4a6d8b5e42ce11e")
         print("ok.")
         return {"status": "success", "uid": uid}
@@ -543,9 +573,17 @@ async def login(raw: loginRequest):
                 if friend_or_group_uid[0] == "g":
                     cur.execute(f'SELECT icon_url FROM gid WHERE gid="{friend_or_group_uid}"')
                     icon_url = cur.fetchone()
+                    message_cur.execute(f'SELECT content, unix FROM {friend_or_group_uid}')
+                    messages = message_cur.fetchall()
+                    try:
+                        last_message = messages[-1][0]
+                        last_message = demoji.replace(string=last_message, repl="")
+                        unix = messages[-1][1]
+                    except:
+                        last_message = ""
                     if icon_url != None:
                         icon_url_string = icon_url[0]
-                        groups.append({"name":friend_or_group_name, "gid":friend_or_group_uid, "icon_url":icon_url_string})
+                        groups.append({"name":friend_or_group_name, "gid":friend_or_group_uid, "icon_url":icon_url_string, "last_message":last_message, "unix": unix})
                     elif icon_url == None:
                         icon_url_string = None
                         groups.append({"name":friend_or_group_name, "gid":friend_or_group_uid, "icon_url":icon_url_string})
@@ -566,6 +604,8 @@ async def login(raw: loginRequest):
                     if icon_url == None:
                         icon_url_string = None
                         friends.append({"name":friend_or_group_name, "uid":friend_or_group_uid, "icon_url":icon_url_string})
+            groups = sorted(groups, key=lambda x: x['unix'])
+            groups.reverse()
             return {
                 "status":"success",
                 "friend": friends,
@@ -685,11 +725,15 @@ def leave_group(raw: leaveGroup):
         if last_number == None:
             last_number = 0
         number = int(last_number) + 1
+        print("leaveGroup:728:" + uid)
         cur.execute(f'SELECT name FROM users WHERE id="{uid}"')
         user_name = cur.fetchone()[0]
         message_cur.execute(f'INSERT INTO {gid} values("{user_name}がグループを抜けました", "ub56e2352490711e", "DevChatログ", {unix}, {number}, "log")')
         message_conn.commit()
         user_cur.execute(f'DELETE FROM {uid} WHERE id="{gid}"')
+        user_conn.commit()
+        group_cur.execute(f'DELETE FROM {gid} WHERE uid="{uid}"')
+        group_conn.commit()
         return {
                 "status":"success"
             }
@@ -704,53 +748,61 @@ def invite_into_group(raw: inviteIntoGroup):
         target_uid = datas["target_uid"]
         to = datas["to"]
         uid = datas["uid"]
-        cur.execute(f'SELECT name FROM gid WHERE gid="{to}"')
-        group_name = cur.fetchone()[0]
-        gmail_account = "devchatotp@gmail.com"
-        gmail_password = "kouta1014"
-        # メールの送信先★ --- (*2)
-        cur.execute(f'SELECT email FROM users WHERE id="{target_uid}"')
-        mail_to= cur.fetchone()[0]
-        cur.execute(f'SELECT name FROM users WHERE id="{uid}"')
-        inviter_name = cur.fetchone()[0]
-        cur.execute(f'SELECT name, email FROM users WHERE id="{target_uid}"')
-        target_name, email = cur.fetchone()
-        cur.execute(f'SELECT icon_url FROM users WHERE id="{target_uid}"')
-        target_icon_url = cur.fetchone()[0]
-        # メールデータ(MIME)の作成 --- (*3)
-        subject = "DevChat グループに招待されました"
-        body = f"{inviter_name}があなたを{group_name}に招待しました\nhttps://devchat.jp からログインしてトークを始めましょう！"
-        msg = MIMEText(body, "html")
-        msg["Subject"] = subject
-        msg["To"] = mail_to
-        msg["From"] = gmail_account
+        group_cur.execute(f'SELECT uid FROM {to}')
+        member_list_1 = group_cur.fetchall()
+        member_list = []
+        for member in member_list_1:
+            member_list.append(member[0])
+        if target_uid in member_list:
+            return {"status":"failed", "reason":"User you invited is already member of the group."}
+        elif target_uid not in member_list:
+            cur.execute(f'SELECT name FROM gid WHERE gid="{to}"')
+            group_name = cur.fetchone()[0]
+            gmail_account = "devchatotp@gmail.com"
+            gmail_password = "kouta1014"
+            # メールの送信先★ --- (*2)
+            cur.execute(f'SELECT email FROM users WHERE id="{target_uid}"')
+            mail_to= cur.fetchone()[0]
+            cur.execute(f'SELECT name FROM users WHERE id="{uid}"')
+            inviter_name = cur.fetchone()[0]
+            cur.execute(f'SELECT name, email FROM users WHERE id="{target_uid}"')
+            target_name, email = cur.fetchone()
+            cur.execute(f'SELECT icon_url FROM users WHERE id="{target_uid}"')
+            target_icon_url = cur.fetchone()[0]
+            # メールデータ(MIME)の作成 --- (*3)
+            subject = "DevChat グループに招待されました"
+            body = f"{inviter_name}があなたを{group_name}に招待しました\nhttps://devchat.jp からログインしてトークを始めましょう！"
+            msg = MIMEText(body, "html")
+            msg["Subject"] = subject
+            msg["To"] = mail_to
+            msg["From"] = gmail_account
 
-        # Gmailに接続 --- (*4)
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465,
-            context=ssl.create_default_context())
-        server.login(gmail_account, gmail_password)
-        server.send_message(msg) # メールの送信
-        print("ok.")
-        #user_registration_token = request.cookies.get("registration_token")
-        #response = messaging.subscribe_to_topic(user_registration_token, to)
-        ## See the TopicManagementResponse reference documentation
-        ## for the contents of response.
-        #print(response.success_count, 'tokens were subscribed successfully')
-        unix = datetime.now().timestamp()
-        message_cur.execute(f'SELECT MAX(number) FROM {to}')
-        last_number = message_cur.fetchone()[0] 
-        print(last_number)
-        if last_number == None:
-            last_number = 0
-        number = int(last_number) + 1
-        message_cur.execute(f'INSERT INTO {to} values("{inviter_name}が{target_name}を招待しました", "ub56e2352490711e", "DevChatログ", {unix}, {number}, "log")')
-        message_conn.commit()
-        user_cur.execute(f'SELECT id FROM {target_uid}')
-        user_cur.execute(f'INSERT INTO {target_uid} values("{to}", "{group_name}")')
-        group_cur.execute(f'INSERT INTO {to} values("{target_uid}", "{target_name}", "{target_icon_url}", "{mail_to}")')
-        user_conn.commit()
-        group_conn.commit()
-        return {"status":"success","gid":to}
+            # Gmailに接続 --- (*4)
+            server = smtplib.SMTP_SSL("smtp.gmail.com", 465,
+                context=ssl.create_default_context())
+            server.login(gmail_account, gmail_password)
+            server.send_message(msg) # メールの送信
+            print("ok.")
+            #user_registration_token = request.cookies.get("registration_token")
+            #response = messaging.subscribe_to_topic(user_registration_token, to)
+            ## See the TopicManagementResponse reference documentation
+            ## for the contents of response.
+            #print(response.success_count, 'tokens were subscribed successfully')
+            unix = datetime.now().timestamp()
+            message_cur.execute(f'SELECT MAX(number) FROM {to}')
+            last_number = message_cur.fetchone()[0] 
+            print(last_number)
+            if last_number == None:
+                last_number = 0
+            number = int(last_number) + 1
+            message_cur.execute(f'INSERT INTO {to} values("{inviter_name}が{target_name}を招待しました", "ub56e2352490711e", "DevChatログ", {unix}, {number}, "log")')
+            message_conn.commit()
+            user_cur.execute(f'SELECT id FROM {target_uid}')
+            user_cur.execute(f'INSERT INTO {target_uid} values("{to}", "{group_name}")')
+            group_cur.execute(f'INSERT INTO {to} values("{target_uid}", "{target_name}", "{target_icon_url}", "{mail_to}")')
+            user_conn.commit()
+            group_conn.commit()
+            return {"status":"success","gid":to}
     else:
         return {"status":"failed", "reason":"invalid type"}
 
@@ -787,6 +839,42 @@ async def get_recent_message(raw: getRecentMessage):
                     pass
             else:
                 break
+        return {"status": "success", "datas": send_datas}
+    else:
+        return {"status": "failed", "reason": "invalid type"}
+
+@router.post("/get_new_message", response_model=getRecentMessageResponse)
+def get_new_message(raw: getNewMessage):
+    datas = jsonable_encoder(raw)
+    type = datas["type"]
+    msg_datas = []
+    if type == "get_new_message":
+        gid = datas["gid"]
+        nums = datas["nums"]
+        for num in nums:
+            message_cur.execute(f"SELECT content, uid, name, unix, number, type FROM {gid} WHERE num={num}")
+            msg_datas.append(message_cur.fetchone())
+        send_datas = []
+        count = 0
+        for data in msg_datas:
+            content, uid, name, unix, number, type = data
+            cur.execute(f'SELECT icon_url FROM users WHERE id="{uid}"')
+            fetched_icon_url = cur.fetchone()
+            if fetched_icon_url != None:
+                icon_url = fetched_icon_url[0]
+                send_datas.append(
+                    {
+                        "content": content,
+                        "uid": uid,
+                        "name": name,
+                        "unix": unix,
+                        "number": number,
+                        "type": type,
+                        "icon_url": icon_url,
+                    }
+                )
+            elif fetched_icon_url == None:
+                pass
         return {"status": "success", "datas": send_datas}
     else:
         return {"status": "failed", "reason": "invalid type"}
